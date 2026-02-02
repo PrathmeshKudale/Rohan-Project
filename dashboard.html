@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="welcome-banner">
+        <h2>नमस्ते Farmer!</h2>
+        <p>Today: {{ date }}</p>
+    </div>
+    
+    <div class="quick-actions">
+        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+        <div class="action-grid">
+            <a href="{{ url_for('voice_assistant') }}" class="action-card voice-action">
+                <i class="fas fa-microphone-alt"></i>
+                <span>Ask AI Assistant</span>
+            </a>
+            <a href="{{ url_for('crop_problem') }}" class="action-card scan-action">
+                <i class="fas fa-camera"></i>
+                <span>Scan Crop Problem</span>
+            </a>
+            <a href="{{ url_for('weather') }}" class="action-card weather-action">
+                <i class="fas fa-cloud-sun"></i>
+                <span>Weather Update</span>
+            </a>
+            <a href="{{ url_for('crop_library') }}" class="action-card crop-action">
+                <i class="fas fa-seedling"></i>
+                <span>Crop Guide</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="dashboard-sections">
+        <div class="section-card">
+            <div class="section-header">
+                <h3><i class="fas fa-book-open"></i> Crop Knowledge</h3>
+                <a href="{{ url_for('crop_library') }}" class="see-all">See All</a>
+            </div>
+            <div class="crop-list">
+                <div class="crop-item">
+                    <i class="fas fa-wheat"></i>
+                    <div>
+                        <strong>Wheat (गेहूं)</strong>
+                        <small>Sowing: Oct-Nov | Harvest: Mar-Apr</small>
+                    </div>
+                </div>
+                <div class="crop-item">
+                    <i class="fas fa-rice"></i>
+                    <div>
+                        <strong>Rice (धान)</strong>
+                        <small>Sowing: Jun-Jul | Harvest: Oct-Nov</small>
+                    </div>
+                </div>
+                <div class="crop-item">
+                    <i class="fas fa-cotton"></i>
+                    <div>
+                        <strong>Cotton (कपास)</strong>
+                        <small>Sowing: Apr-Jun | Harvest: Oct-Dec</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <h3><i class="fas fa-cloud-sun-rain"></i> Today's Weather</h3>
+                <a href="{{ url_for('weather') }}" class="see-all">Details</a>
+            </div>
+            <div class="weather-widget">
+                <div class="weather-main">
+                    <i class="fas fa-sun"></i>
+                    <div>
+                        <h4>32°C</h4>
+                        <p>Partly Cloudy</p>
+                    </div>
+                </div>
+                <div class="weather-details">
+                    <div class="weather-item">
+                        <i class="fas fa-tint"></i>
+                        <span>65% Humidity</span>
+                    </div>
+                    <div class="weather-item">
+                        <i class="fas fa-wind"></i>
+                        <span>12 km/h Wind</span>
+                    </div>
+                    <div class="weather-item">
+                        <i class="fas fa-cloud-rain"></i>
+                        <span>20% Rain</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <h3><i class="fas fa-bullhorn"></i> Important Alerts</h3>
+            </div>
+            <div class="alerts-list">
+                <div class="alert-item warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>
+                        <strong>Heat Wave Alert</strong>
+                        <p>Temperature may reach 40°C tomorrow</p>
+                    </div>
+                </div>
+                <div class="alert-item info">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <strong>Rice Farmers</strong>
+                        <p>Check for stem borer infestation</p>
+                    </div>
+                </div>
+                <div class="alert-item success">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <strong>PM-KISAN Installment</strong>
+                        <p>Next payment due in 15 days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-card">
+            <div class="section-header">
+                <h3><i class="fas fa-hands-helping"></i> Community</h3>
+                <a href="{{ url_for('farmer_blog') }}" class="see-all">View All</a>
+            </div>
+            <div class="community-links">
+                <a href="{{ url_for('farmer_blog') }}" class="community-link">
+                    <i class="fas fa-comments"></i>
+                    <span>Farmer Knowledge</span>
+                </a>
+                <a href="{{ url_for('organic_market') }}" class="community-link">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span>Organic Products</span>
+                </a>
+                <a href="{{ url_for('government_schemes') }}" class="community-link">
+                    <i class="fas fa-file-invoice"></i>
+                    <span>Govt Schemes</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="floating-action">
+    <button class="fab voice-fab" onclick="window.location.href='{{ url_for('voice_assistant') }}'">
+        <i class="fas fa-microphone"></i>
+    </button>
+</div>
+{% endblock %}
