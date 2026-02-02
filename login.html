@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <i class="fas fa-mobile-alt"></i>
+            <h2>Login with Mobile</h2>
+            <p>Enter your 10-digit mobile number</p>
+        </div>
+        
+        <form method="POST" action="{{ url_for('login') }}" class="login-form">
+            <div class="input-group">
+                <div class="input-prefix">
+                    <i class="fas fa-phone"></i>
+                    <span>+91</span>
+                </div>
+                <input type="tel" 
+                       name="mobile" 
+                       id="mobile" 
+                       pattern="[0-9]{10}" 
+                       maxlength="10" 
+                       placeholder="9876543210"
+                       required
+                       class="large-input">
+            </div>
+            
+            <p class="privacy-note">
+                <i class="fas fa-shield-alt"></i>
+                Your mobile number is used only for login verification.
+            </p>
+            
+            <button type="submit" class="btn btn-primary btn-large btn-block">
+                <i class="fas fa-paper-plane"></i>
+                Send OTP
+            </button>
+            
+            <a href="{{ url_for('dashboard') }}" class="skip-link">
+                Browse without login →
+            </a>
+        </form>
+        
+        <div class="login-help">
+            <h4><i class="fas fa-question-circle"></i> How to Login:</h4>
+            <ol>
+                <li>Enter 10-digit mobile number</li>
+                <li>You'll receive 6-digit OTP via SMS</li>
+                <li>Enter OTP on next screen</li>
+                <li>Start using FarmAssist!</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="number-pad">
+    <div class="number-grid">
+        <button class="num-btn" onclick="appendNumber('1')">1</button>
+        <button class="num-btn" onclick="appendNumber('2')">2</button>
+        <button class="num-btn" onclick="appendNumber('3')">3</button>
+        <button class="num-btn" onclick="appendNumber('4')">4</button>
+        <button class="num-btn" onclick="appendNumber('5')">5</button>
+        <button class="num-btn" onclick="appendNumber('6')">6</button>
+        <button class="num-btn" onclick="appendNumber('7')">7</button>
+        <button class="num-btn" onclick="appendNumber('8')">8</button>
+        <button class="num-btn" onclick="appendNumber('9')">9</button>
+        <button class="num-btn" onclick="clearNumber()"><i class="fas fa-backspace"></i></button>
+        <button class="num-btn" onclick="appendNumber('0')">0</button>
+        <button class="num-btn" onclick="appendNumber('00')">00</button>
+    </div>
+</div>
+
+<script>
+function appendNumber(num) {
+    const input = document.getElementById('mobile');
+    if (input.value.length < 10) {
+        input.value += num;
+    }
+}
+
+function clearNumber() {
+    const input = document.getElementById('mobile');
+    input.value = input.value.slice(0, -1);
+}
+
+// Auto-select input on load
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('mobile').focus();
+});
+</script>
+{% endblock %}
