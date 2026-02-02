@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="welcome-screen">
+    <div class="welcome-content">
+        <div class="app-logo">
+            <i class="fas fa-seedling"></i>
+            <h1>FarmAssist</h1>
+        </div>
+        
+        <p class="tagline">Smart Farming Assistant for Indian Farmers</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-microphone-alt"></i>
+                <h3>Voice Assistant</h3>
+                <p>Ask questions in your language</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-leaf"></i>
+                <h3>Crop Health</h3>
+                <p>Scan crops for problems</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-cloud-sun"></i>
+                <h3>Weather Alerts</h3>
+                <p>Real-time weather updates</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-users"></i>
+                <h3>Farmer Network</h3>
+                <p>Share knowledge with others</p>
+            </div>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('login') }}" class="btn btn-primary btn-large">
+                <i class="fas fa-mobile-alt"></i>
+                Login with Mobile
+            </a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-large">
+                <i class="fas fa-eye"></i>
+                Browse First
+            </a>
+        </div>
+        
+        <div class="language-selector-large">
+            <p>Choose your language:</p>
+            <div class="language-buttons">
+                <button class="lang-btn" onclick="setLanguage('hindi')">हिंदी</button>
+                <button class="lang-btn" onclick="setLanguage('english')">English</button>
+                <button class="lang-btn" onclick="setLanguage('marathi')">मराठी</button>
+                <button class="lang-btn" onclick="setLanguage('tamil')">தமிழ்</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
