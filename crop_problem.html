@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="crop-problem-container">
+    <div class="page-header">
+        <h2><i class="fas fa-leaf"></i> Crop Problem Detection</h2>
+        <p>Upload photo of affected crop/leaf for analysis</p>
+    </div>
+    
+    <div class="upload-area" id="uploadArea">
+        <input type="file" id="imageInput" accept="image/*" capture="environment" hidden>
+        <div class="upload-icon">
+            <i class="fas fa-camera"></i>
+        </div>
+        <h3>Tap to Upload Photo</h3>
+        <p class="upload-hint">or click to select from gallery</p>
+        <button class="btn btn-secondary" onclick="openCamera()">
+            <i class="fas fa-camera"></i> Open Camera
+        </button>
+    </div>
+    
+    <div class="analysis-result" id="resultSection" style="display: none;">
+        <h3><i class="fas fa-clipboard-check"></i> Analysis Result</h3>
+        <div class="result-card">
+            <div class="problem-type">
+                <span class="tag warning">Possible Fungal Infection</span>
+                <span class="confidence">85% confidence</span>
+            </div>
+            
+            <div class="guidance-section">
+                <h4><i class="fas fa-lightbulb"></i> Recommended Actions</h4>
+                <ul class="guidance-list">
+                    <li>Remove affected leaves immediately</li>
+                    <li>Ensure proper drainage in field</li>
+                    <li>Maintain plant spacing for air circulation</li>
+                    <li>Avoid overhead watering</li>
+                </ul>
+            </div>
+            
+            <div class="organic-remedies">
+                <h4><i class="fas fa-spa"></i> Organic Remedies</h4>
+                <div class="remedy-card">
+                    <h5>Neem Oil Spray</h5>
+                    <p>Mix 5ml neem oil with 1 liter water + few drops of soap</p>
+                </div>
+                <div class="remedy-card">
+                    <h5>Garlic-Chili Spray</h5>
+                    <p>Blend 10 garlic cloves + 5 chilies in 1 liter water</p>
+                </div>
+            </div>
+            
+            <div class="disclaimer">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p><strong>Disclaimer:</strong> This is AI-based guidance only. Consult local agriculture expert for exact treatment.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="quick-tips">
+        <h4><i class="fas fa-tips"></i> Tips for Best Results:</h4>
+        <ul>
+            <li>Take photo in good daylight</li>
+            <li>Focus on affected leaves/area</li>
+            <li>Include healthy parts for comparison</li>
+            <li>Upload clear, close-up photos</li>
+        </ul>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="btn btn-primary btn-large" onclick="analyzeImage()" id="analyzeBtn" style="display: none;">
+            <i class="fas fa-search"></i> Analyze Image
+        </button>
+        <button class="btn btn-secondary" onclick="resetUpload()">
+            <i class="fas fa-redo"></i> Try Another
+        </button>
+    </div>
+</div>
+
+<script>
+let selectedImage = null;
+
+document.getElementById('uploadArea').addEventListener('click', function() {
+    document.getElementById('imageInput').click();
+});
+
+document.getElementById('imageInput').addEventListener('change', function(e) {
+    if (e.target.files.length > 0) {
+        selectedImage = e.target.files[0];
+        showPreview(selectedImage);
+        document.getElementById('analyzeBtn').style.display = 'block';
+    }
+});
+
+function openCamera() {
+    document.getElementById('imageInput').setAttribute('capture', 'environment');
+    document.getElementById('imageInput').click();
+}
+
+function showPreview(file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const uploadArea = document.getElementById('uploadArea');
+        uploadArea.innerHTML = `
+            <div class="image-preview">
+                <img src="${e.target.result}" alt="Preview">
+                <button class="remove-image" onclick="resetUpload()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <p>Image ready for analysis</p>
+        `;
+    };
+    reader.readAsDataURL(file);
+}
+
+function analyzeImage() {
+    if (!selectedImage) return;
+    
+    // Show loading
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    analyzeBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+    analyzeBtn.disabled = true;
+    
+    // Simulate API call
+    setTimeout(() => {
+        document.getElementById('resultSection').style.display = 'block';
+        analyzeBtn.style.display = 'none';
+        
+        // Scroll to results
+        document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+    }, 2000);
+}
+
+function resetUpload() {
+    selectedImage = null;
+    document.getElementById('uploadArea').innerHTML = `
+        <input type="file" id="imageInput" accept="image/*" capture="environment" hidden>
+        <div class="upload-icon">
+            <i class="fas fa-camera"></i>
+        </div>
+        <h3>Tap to Upload Photo</h3>
+        <p class="upload-hint">or click to select from gallery</p>
+        <button class="btn btn-secondary" onclick="openCamera()">
+            <i class="fas fa-camera"></i> Open Camera
+        </button>
+    `;
+    document.getElementById('resultSection').style.display = 'none';
+    document.getElementById('analyzeBtn').style.display = 'none';
+    
+    // Re-attach event listeners
+    document.getElementById('uploadArea').addEventListener('click', function() {
+        document.getElementById('imageInput').click();
+    });
+}
+</script>
+{% endblock %}
