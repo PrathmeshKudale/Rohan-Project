@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmAssist - Smart Farming Helper</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        {% if 'user_id' in session %}
+        <header class="app-header">
+            <div class="header-left">
+                <a href="{{ url_for('dashboard') }}" class="logo">
+                    <i class="fas fa-seedling"></i>
+                    <span>FarmAssist</span>
+                </a>
+            </div>
+            <div class="header-right">
+                <button class="icon-btn voice-btn" onclick="startVoice()">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <div class="language-selector">
+                    <select id="languageSelect" onchange="changeLanguage(this.value)">
+                        <option value="hindi">हिंदी</option>
+                        <option value="english">English</option>
+                        <option value="marathi">मराठी</option>
+                        <option value="tamil">தமிழ்</option>
+                        <option value="telugu">తెలుగు</option>
+                        <option value="kannada">ಕನ್ನಡ</option>
+                        <option value="gujarati">ગુજરાતી</option>
+                        <option value="bengali">বাংলা</option>
+                    </select>
+                </div>
+                <a href="{{ url_for('logout') }}" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </header>
+        {% endif %}
+        
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+        
+        {% if 'user_id' in session %}
+        <nav class="bottom-nav">
+            <a href="{{ url_for('dashboard') }}" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="{{ url_for('crop_library') }}" class="nav-item">
+                <i class="fas fa-book"></i>
+                <span>Crops</span>
+            </a>
+            <a href="{{ url_for('crop_problem') }}" class="nav-item">
+                <i class="fas fa-camera"></i>
+                <span>Scan</span>
+            </a>
+            <a href="{{ url_for('voice_assistant') }}" class="nav-item">
+                <i class="fas fa-microphone-alt"></i>
+                <span>AI Help</span>
+            </a>
+            <a href="{{ url_for('weather') }}" class="nav-item">
+                <i class="fas fa-cloud-sun"></i>
+                <span>Weather</span>
+            </a>
+        </nav>
+        {% endif %}
+    </div>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
